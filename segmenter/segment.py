@@ -1,18 +1,19 @@
 import os
 from utils.ffmpeg_utils import extract_audio_segment, extract_video_segment
+from typing import List, Dict # Added import
 
-def export_segments(video_path: str, segments: list[dict], output_dir: str) -> dict[str, list[str]]:
+def export_segments(video_path: str, segments: List[Dict[str, str]], output_dir: str) -> Dict[str, List[str]]:
     """
     Exports specified audio and video segments from a video file.
 
     Args:
         video_path (str): Path to the input video file.
-        segments (list[dict]): A list of segment dictionaries, each with "start" and "end" timestamps.
+        segments (List[Dict[str, str]]): A list of segment dictionaries, each with "start" and "end" timestamps.
                                Example: [{"start": "00:00:10", "end": "00:00:20"}, ...]
         output_dir (str): The directory to save the exported segment files.
 
     Returns:
-        dict[str, list[str]]: A dictionary with keys "audio_segments" and "video_segments",
+        Dict[str, List[str]]: A dictionary with keys "audio_segments" and "video_segments",
                               containing lists of paths to the exported files.
                               Returns empty lists if no segments are processed or if errors occur.
     """
@@ -22,8 +23,8 @@ def export_segments(video_path: str, segments: list[dict], output_dir: str) -> d
 
     os.makedirs(output_dir, exist_ok=True)
 
-    exported_audio_files = []
-    exported_video_files = []
+    exported_audio_files: List[str] = [] # Added type hint
+    exported_video_files: List[str] = [] # Added type hint
 
     base_filename = os.path.splitext(os.path.basename(video_path))[0]
 

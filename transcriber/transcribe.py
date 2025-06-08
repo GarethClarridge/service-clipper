@@ -2,8 +2,9 @@ import os
 import openai
 from dotenv import load_dotenv
 from utils.ffmpeg_utils import extract_full_audio_from_video
+from typing import Optional # Added import
 
-def transcribe_video(video_path: str, temp_audio_path: str = "outputs/temp_audio/temp_for_whisper.wav") -> str | None:
+def transcribe_video(video_path: str, temp_audio_path: str = "outputs/temp_audio/temp_for_whisper.wav") -> Optional[str]: # Changed type hint
     """
     Transcribes the audio from a video file using OpenAI Whisper.
 
@@ -13,7 +14,7 @@ def transcribe_video(video_path: str, temp_audio_path: str = "outputs/temp_audio
                                Defaults to "outputs/temp_audio/temp_for_whisper.wav".
 
     Returns:
-        str | None: The transcript text if successful, None otherwise.
+        Optional[str]: The transcript text if successful, None otherwise. # Changed type hint in docstring
     """
     load_dotenv()
     api_key = os.getenv("OPENAI_API_KEY")
@@ -45,7 +46,6 @@ def transcribe_video(video_path: str, temp_audio_path: str = "outputs/temp_audio
                 model="whisper-1",
                 file=audio_file
             )
-        # The response object structure for v1.x openai library is response.text
         transcript_text = response.text
         print("Transcription successful.")
     except openai.APIError as e:
@@ -58,14 +58,11 @@ def transcribe_video(video_path: str, temp_audio_path: str = "outputs/temp_audio
     except Exception as e:
         print(f"An unexpected error occurred during transcription: {e}")
     finally:
-        # Clean up the temporary audio file
-        if os.path.exists(extracted_audio_file_path):
+        if extracted_audio_file_path and os.path.exists(extracted_audio_file_path): # Check if path exists before removing
             try:
                 os.remove(extracted_audio_file_path)
                 print(f"Temporary audio file {extracted_audio_file_path} removed.")
-                # Attempt to remove the directory if it's empty
-                # temp_audio_dir is already defined above
-                if os.path.exists(temp_audio_dir) and not os.listdir(temp_audio_dir):
+                if temp_audio_dir and os.path.exists(temp_audio_dir) and not os.listdir(temp_audio_dir): # Check if temp_audio_dir is not None
                     os.rmdir(temp_audio_dir)
                     print(f"Temporary audio directory {temp_audio_dir} removed as it was empty.")
             except OSError as e_os:

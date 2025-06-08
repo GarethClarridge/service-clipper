@@ -11,5 +11,6 @@
     ],
     "video_path_processed": "/app/inputs/video1.mp4",
     "job_output_directory": "/app/outputs/video1_job_output",
+    "job_status_file": null,
     "error": "Transcription failed."
 }
