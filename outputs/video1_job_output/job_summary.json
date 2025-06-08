@@ -1,0 +1,15 @@
+{
+    "transcript_content": null,
+    "transcript_file": null,
+    "exported_audio_segments": [
+        "/app/outputs/video1_job_output/segments/video1_segment_1_00-00-03_00-00-08_audio.mp3",
+        "/app/outputs/video1_job_output/segments/video1_segment_2_00-00-12_00-00-18_audio.mp3"
+    ],
+    "exported_video_segments": [
+        "/app/outputs/video1_job_output/segments/video1_segment_1_00-00-03_00-00-08_video.mp4",
+        "/app/outputs/video1_job_output/segments/video1_segment_2_00-00-12_00-00-18_video.mp4"
+    ],
+    "video_path_processed": "/app/inputs/video1.mp4",
+    "job_output_directory": "/app/outputs/video1_job_output",
+    "error": "Transcription failed."
+}
